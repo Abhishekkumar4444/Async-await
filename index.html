@@ -5,96 +5,106 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pyramidal Dome</title>
-    <style>
-        h1 {
-            margin: 0;
-        }
-    </style>
+    <title>Document</title>
 </head>
 
 <body>
-    <h1 style="text-align: center;">Call Back Hell</h1>
-    <h1 class="heading1">item 1</h1>
-    <h1 class="heading2">item 2</h1>
-    <h1 class="heading3">item 3</h1>
-    <h1 class="heading4">item 4</h1>
-    <h1 class="heading5">item 5</h1>
-    <h1 class="heading6">item 6</h1>
-    <h1 class="heading7">item 7</h1>
-    <h1 class="heading8">item 8</h1>
-    <h1 class="heading9">item 9</h1>
-    <h1 class="heading10">item 10</h1>
     <script>
-        const heading1 = document.querySelector(".heading1");
-        const heading2 = document.querySelector(".heading2");
-        const heading3 = document.querySelector(".heading3");
-        const heading4 = document.querySelector(".heading4");
-        const heading5 = document.querySelector(".heading5");
-        const heading6 = document.querySelector(".heading6");
-        const heading7 = document.querySelector(".heading7");
-        const heading8 = document.querySelector(".heading8");
-        const heading9 = document.querySelector(".heading9");
-        const heading10 = document.querySelector(".heading10");
+        // let xhr = new XMLHttpRequest();
+        // xhr.open("GET", URL);
+        // xhr.onload = function() {
+        //     if (xhr.status >= 200 && xhr.status < 300) {
 
-        function chng(element, text, col, time, onsuccess, onfail) {
+        //         let response = xhr.response;
+        //         let data = JSON.parse(response);
+        //         console.log(data);
+        //     } else {
+        //         console.log("error");
 
-            setTimeout(() => {
-                if (element) {
-                    element.textContent = text;
-                    element.style.color = col;
-                    if (onsuccess) {
-                        onsuccess();
-                    }
-                } else {
-                    if (onfail) {
-                        onfail();
-                    }
-                }
+        //     }
 
-            }, time);
-        }
-        chng(heading1, "one", "red", 1000, () => {
-            chng(heading2, "Two", "green", 2000, () => {
-                chng(heading3, "three", "yellow", 2000, () => {
-                    chng(heading4, "four", "brown", 1000, () => {
-                        chng(heading5, "five", "pink", 1000, () => {
-                            chng(heading6, "six", "blue", 2000, () => {
-                                chng(heading7, "seven", "orange", 1000, () => {
-                                    chng(heading8, "eight", "black", 1000, () => {
-                                        chng(heading9, "nine", "grey", 2000, () => {
-                                            chng(heading10, "ten", "dodgerblue", 1000, () => {
+        // }
+        // xhr.onerror = () => {
+        //     console.log("internet connection lost");
 
-                                            }, () => {
-                                                console.log("fail");
-                                            });
-                                        }, () => {
-                                            console.log("fail");
-                                        });
-                                    }, () => {
-                                        console.log("fail");
-                                    });
-                                }, () => {
-                                    console.log("fail");
-                                });
-                            }, () => {
-                                console.log("fail");
-                            });
-                        }, () => {
-                            console.log("fail");
-                        });
-                    }, () => {
-                        console.log("fail");
-                    });
-                }, () => {
-                    console.log("fail");
-                });
-            }, () => {
-                console.log("fail");
-            });
-        }, () => {
-            console.log("fail");
+        // }
+        // xhr.send();
+
+        // function request(method, url) {
+        //     return new Promise((resolve, reject) => {
+        //         let xhr = new XMLHttpRequest();
+        //         xhr.open(method, url);
+        //         xhr.onload = function() {
+
+        //             if (xhr.status >= 200 && xhr.status < 300) {
+        //                 resolve(xhr.response);
+        //             } else {
+        //                 reject(new Error("error"));
+        //             }
+        //         }
+
+        //         xhr.onerror = function() {
+        //             reject(new Error("something went wrong"));
+        //         }
+        //         xhr.send();
+        // }).then(data => {
+        //     let id = data[10].id;
+        //     return id;
+        // }).then(id => {
+        //     let url = `${URL}/${id}`;
+        //     return request("GET", url)
+
+        // }).then((data) => {
+        //     let response = JSON.parse(data);
+        //     return response
+        // }).then(data => console.log(data)).catch((error) => console.log(error))   //     })
+        // }
+        // request("GET", URL).then((response) => {
+        //     let data = JSON.parse(response); //parse ids used to convert string to json object
+        //     // console.log(data);
+        //     return data
+
+
+
+        let URL = "https://jsonplaceholder.typicode.com/posts";
+
+        fetch(URL).then(response => {
+            if (response.ok) {
+                console.log("inside response");
+
+                return response.json();
+            } else {
+                throw new Error("something went wrong");
+            }
+
+        }).then(data => console.log(data)).catch(error => {
+            console.log("inside catch");
+            console.log(error);
         });
+        async function request() {
+            let response = await fetch(URL);
+            console.log(response);
+
+            if (response.status == 200) {
+                let data = await response.json();
+                return data
+
+            } else {
+                throw new Error("somthing went wrong");
+            }
+
+        }
+
+        let request = async() => {
+            let response = await fetch(URL);
+            if (!response.ok) {
+                throw new Error("something went wrong");
+            }
+            let data = await response.json();
+            return data
+
+        }
+        request().then(data => console.log(data)).catch((error) => console.log(error))
     </script>
 </body>
 
